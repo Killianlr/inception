@@ -28,7 +28,7 @@ if [ ! -f "/var/www/html/wordpress/wp-config.php" ]; then
 
     # Crée un utilisateur WordPress avec un rôle d'auteur
     wp user create --allow-root \
-        ${USER_LOGIN} ${USER_MAIL} \
+        ${USER_LOGIN} ${USER_EMAIL} \
         --role=author \
         --user_pass=${USER_PASSWORD}
 fi
