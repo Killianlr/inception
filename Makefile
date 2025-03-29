@@ -1,6 +1,6 @@
 NAME = inception
-REPO_DB = /home/kle-rest/data/mariadb
-REPO_WP = /home/kle-rest/data/wordpress
+REPO_DB =/home/kle-rest/data/mariadb
+REPO_WP =/home/kle-rest/data/wordpress
 
 all: ${NAME}
 
@@ -33,13 +33,10 @@ clean:
 		docker compose -f ./srcs/docker-compose.yml down; \
 	else \
 		echo "Error: .env file not found. Please ensure the .env file exists."; \
-		exit 1; \
 	fi
-
 clear:
 	@if [ -d "${REPO_DB}" ]; then \
-		echo "Deleting database volume..."; \
-		sudo rm -rf ${REPO_DB}; \
+		sudo rm -rf "${REPO_DB}"; \
 	else \
 		echo "No database volume to delete."; \
 	fi
@@ -52,11 +49,13 @@ clear:
 	docker system prune -af
 	@if docker volume ls -q -f name=srcs_mariadb; then \
 		docker volume rm srcs_mariadb; \
+		echo "Removed srcs_mariadb volume."; \
 	else \
 		echo "No srcs_mariadb volume to remove."; \
 	fi
 	@if docker volume ls -q -f name=srcs_wordpress; then \
 		docker volume rm srcs_wordpress; \
+		echo "Removed srcs_wordpress volume."; \
 	else \
 		echo "No srcs_wordpress volume to remove."; \
 	fi
