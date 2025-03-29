@@ -10,7 +10,24 @@ ${NAME}: create_repos
 	docker compose -f ./srcs/docker-compose.yml up -d
 
 clean:
-	docker container stop nginx mariadb wordpress
+	@if docker ps -q -f name=nginx; then \
+		docker container stop nginx; \
+		echo "Nginx container stopped."; \
+	else \
+		echo "Nginx container does not exist."; \
+	fi
+	@if docker ps -q -f name=mariadb; then \
+		docker container stop mariadb; \
+		echo "MariaDB container stopped."; \
+	else \
+		echo "MariaDB container does not exist."; \
+	fi
+	@if docker ps -q -f name=wordpress; then \
+		docker container stop wordpress; \
+		echo "WordPress container stopped."; \
+	else \
+		echo "WordPress container does not exist."; \
+	fi
 	docker compose -f ./srcs/docker-compose.yml down
 
 clear:
