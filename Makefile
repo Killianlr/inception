@@ -14,14 +14,29 @@ clean:
 	docker compose -f ./srcs/docker-compose.yml down
 
 clear:
-	@if [ -d "${REPO_DB}" ] || [ -d "${REPO_WP}" ]; then \
-		echo "Deleting database and WordPress volumes..."; \
-		sudo rm -rf ${REPO_DB} ${REPO_WP}; \
+	@if [ -d "${REPO_DB}" ]; then \
+		echo "Deleting database volume..."; \
+		sudo rm -rf ${REPO_DB}; \
 	else \
-		echo "No volumes to delete."; \
+		echo "No database volume to delete."; \
+	fi
+	@if [ -d "${REPO_WP}" ]; then \
+		echo "Deleting WordPress volume..."; \
+		sudo rm -rf ${REPO_WP}; \
+	else \
+		echo "No WordPress volume to delete."; \
 	fi
 	docker system prune -af
-	docker volume rm srcs_mariadb srcs_wordpress
+	@if docker volume ls -q -f name=srcs_mariadb; then \
+		docker volume rm srcs_mariadb; \
+	else \
+		echo "No srcs_mariadb volume to remove."; \
+	fi
+	@if docker volume ls -q -f name=srcs_wordpress; then \
+		docker volume rm srcs_wordpress; \
+	else \
+		echo "No srcs_wordpress volume to remove."; \
+	fi
 	docker volume prune -af
 	docker network prune -f
 
