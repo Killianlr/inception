@@ -28,7 +28,13 @@ clean:
 	else \
 		echo "WordPress container does not exist."; \
 	fi
-	docker compose -f ./srcs/docker-compose.yml down
+	@if [ -f ./srcs/.env ]; then \
+		echo ".env file exists, proceeding with docker-compose down..."; \
+		docker compose -f ./srcs/docker-compose.yml down; \
+	else \
+		echo "Error: .env file not found. Please ensure the .env file exists."; \
+		exit 1; \
+	fi
 
 clear:
 	@if [ -d "${REPO_DB}" ]; then \
