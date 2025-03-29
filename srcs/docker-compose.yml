@@ -55,13 +55,13 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/klrubuntuinception/data/mariadb'
+      device: '/home/kle-rest/data/mariadb'
   wordpress:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/klrubuntuinception/data/wordpress'
+      device: '/home/kle-rest/data/wordpress'
 
 networks:
   inception:

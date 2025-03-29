@@ -1,11 +1,11 @@
 NAME = inception
-REPO_DB = /home/klrubuntuinception/data/mariadb
-REPO_WP = /home/klrubuntuinception/data/wordpress
+REPO_DB = /home/kle-rest/data/mariadb
+REPO_WP = /home/kle-rest/data/wordpress
 
 all: ${NAME}
 
 ${NAME}: create_repos
-	cp /home/klrubuntuinception/.env ./srcs/
+	cp /home/kle-rest/.env ./srcs/
 	docker compose -f ./srcs/docker-compose.yml build
 	docker compose -f ./srcs/docker-compose.yml up -d
 
